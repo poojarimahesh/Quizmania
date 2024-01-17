@@ -33,6 +33,10 @@ public class UserServiceImpl implements UserService {
             throw new Exception("User Already present");
         }else{
 //            Optional<Role> role=roleRepository.findById(1024).get();
+            Role role= new Role();
+            role.setRoleName("ROLE_NORMAL");
+            role.setRoleId(1024);
+            this.roleRepository.save(role);
             user.setRole(roleRepository.findById(1024).get());
             User save = this.userRepository.save(user);
 //            Role role =this.roleRepository.findById(1024).get();

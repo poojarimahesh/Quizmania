@@ -1,6 +1,7 @@
 package com.quizmania;
 
 import com.quizmania.Repositories.RoleRepository;
+import com.quizmania.Repositories.UserRepository;
 import com.quizmania.entity.Role;
 import com.quizmania.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
@@ -17,6 +20,9 @@ public class QuizmaniaServerApplication implements CommandLineRunner{
 
 	@Autowired
 	RoleRepository roleRepository;
+
+	@Autowired
+	UserRepository userRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(QuizmaniaServerApplication.class, args);
 	}
@@ -56,6 +62,8 @@ public class QuizmaniaServerApplication implements CommandLineRunner{
 //		Role roleSaved = roleRepository.save(role);
 
 //		logger.info("Accessing User from role table {}",roleSaved.getUsers().toString());
+
+
 		System.out.println(this.roleRepository.findById(1024).get().getUsers().size());
 
 	}
