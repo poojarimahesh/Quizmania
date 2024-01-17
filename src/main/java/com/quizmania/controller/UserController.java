@@ -3,7 +3,8 @@ package com.quizmania.controller;
 import com.quizmania.entity.User;
 import com.quizmania.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,12 +25,12 @@ public class UserController {
     }
 
     @GetMapping("/allUsers")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     List<User> getAllUsers(){
         return this.userServiceImpl.getAllUsers();
     }
     @GetMapping("/{username}")
-//    @PreAuthorize("hasAuthority('ROLE_NORMAL')")
+    @PreAuthorize("hasAuthority('ROLE_NORMAL')")
     User getUser(@PathVariable String username){
         return this.userServiceImpl.getUser(username);
     }

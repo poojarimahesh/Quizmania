@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @SpringBootApplication
-public class QuizmaniaServerApplication implements CommandLineRunner{
+public class QuizmaniaServerApplication {
 
 
 	@Autowired
@@ -27,8 +27,8 @@ public class QuizmaniaServerApplication implements CommandLineRunner{
 		SpringApplication.run(QuizmaniaServerApplication.class, args);
 	}
 //
-	@Override
-	public void run(String... args) throws Exception {
+//	@Override
+//	public void run(String... args) throws Exception {
 //
 //
 //		User user1 = new User();
@@ -64,7 +64,7 @@ public class QuizmaniaServerApplication implements CommandLineRunner{
 //		logger.info("Accessing User from role table {}",roleSaved.getUsers().toString());
 
 
-		System.out.println(this.roleRepository.findById(1024).get().getUsers().size());
-
-	}
+//		System.out.println(this.roleRepository.findById(1024).get().getUsers().size());
+//
+//	}
 }
