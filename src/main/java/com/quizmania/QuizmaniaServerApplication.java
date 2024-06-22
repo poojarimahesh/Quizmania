@@ -18,12 +18,13 @@ import java.util.Set;
 public class QuizmaniaServerApplication {
 
 
-	@Autowired
-	RoleRepository roleRepository;
-
-	@Autowired
-	UserRepository userRepository;
+//	@Autowired
+//	RoleRepository roleRepository;
+//
+//	@Autowired
+//	UserRepository userRepository;
 	public static void main(String[] args) {
+
 		SpringApplication.run(QuizmaniaServerApplication.class, args);
 	}
 //

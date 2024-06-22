@@ -5,6 +5,7 @@ import com.quizmania.service.Impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class UserController {
     }
     @GetMapping("/{username}")
     @PreAuthorize("hasAuthority('ROLE_NORMAL')")
-    User getUser(@PathVariable String username){
+    UserDetails getUser(@PathVariable String username){
         return this.userServiceImpl.getUser(username);
     }
 

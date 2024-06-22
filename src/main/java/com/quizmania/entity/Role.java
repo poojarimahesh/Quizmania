@@ -24,7 +24,7 @@ public class Role {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
     private Set<User> users=new HashSet<>();
 
     @Override

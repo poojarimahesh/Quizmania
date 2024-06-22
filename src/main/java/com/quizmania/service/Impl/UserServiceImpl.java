@@ -7,6 +7,8 @@ import com.quizmania.entity.User;
 import com.quizmania.service.UserService;
 import org.apache.el.util.ReflectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -23,9 +25,14 @@ public class UserServiceImpl implements UserService {
     UserRepository userRepository;
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    private UserInfoUserDetailsService userInfoUserDetailsService;
+    @Autowired
+    PasswordEncoder passwordEncoder;
     @Override
     public User createUser(User user) throws Exception {
-        User local=this.userRepository.findByUserName(user.getUserName());
+        User local=this.userRepository.findByUserName(user.getUsername());
 
         if(local!=null){
             System.out.println("User Already present");
@@ -38,6 +45,7 @@ public class UserServiceImpl implements UserService {
 //            role.setRoleId(1024);
 //            this.roleRepository.save(role);
             user.setRole(roleRepository.findById(1024).get());
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             User save = this.userRepository.save(user);
 //            Role role =this.roleRepository.findById(1024).get();
 //            role.getUsers().add(save);
@@ -48,7 +56,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(String userName) {
+    public UserDetails getUser(String userName) {
 //        User user= userRepository.findByUserName(userName);
 //        if(user!=null){
 //            System.out.println(user.getRole().getUsers());
@@ -59,7 +67,7 @@ public class UserServiceImpl implements UserService {
 //
 //        return user;
 
-        return this.userRepository.findByUserName(userName);
+        return this.userInfoUserDetailsService.loadUserByUsername(userName);
     }
 
     @Override

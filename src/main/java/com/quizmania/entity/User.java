@@ -2,9 +2,17 @@ package com.quizmania.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,6 +22,7 @@ public class User {
     private String lastName;
     private String password;
     private String email;
+
 
     @Override
     public String toString() {
@@ -36,6 +45,10 @@ public class User {
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Role role;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private Set<Result> result;
 
     public Role getRole() {
         return role;
@@ -67,9 +80,13 @@ public class User {
         this.userId = userId;
     }
 
-    public String getUserName() {
+
+    @Override
+    public String getUsername() {
         return userName;
     }
+
+
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -91,9 +108,8 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getPassword() {
-        return password;
-    }
+
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -121,6 +137,38 @@ public class User {
 
     public void setEnable(Boolean enable) {
         this.enable = enable;
+    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities;
+        authorities= Arrays.asList(new SimpleGrantedAuthority(this.getRole().getRoleName()));
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
     
 }
